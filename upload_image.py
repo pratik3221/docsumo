@@ -77,9 +77,22 @@ def extract_text_from_image(image):
         return {"error": str(e)}
 
 
-def post_ocr_process(text):
+def post_ocr_process(text):  # according to basic output printed on terminal windows while testing
     lines = text.split("\n\n")
-    print(lines)
+    response = {}
+    # print(lines)
+    for line in lines:
+        copy = line
+        if copy.lower().startswith('name'):  # name
+            print(line)
+            response['Name'] = line.split(":")[1].split(" ")[0]
+        elif copy.lower().startswith('roll'):  # roll number
+            print(line)
+            response['Roll No'] = line.split(":")[1].split(" ")[0]
+        elif copy.lower().startswith('math'):  # math marks
+            response['Math'] = line.split(":")[1].split(" ")[0]
+
+    print(response)
 
 
 @app.route('/upload_image', methods=['POST'])
