@@ -115,9 +115,9 @@ def upload_image():
             preprocess(img)
             text = extract_text_from_image(img)
             # print(text)
-            post_ocr_process(text)
+            resp = post_ocr_process(text)
             # return {"message": "File uploaded successfully", "data": info, "text": text}, 200
-            return {"message": "File uploaded successfully", "text": text}, 200
+            return jsonify(response), 200
         else:
             return jsonify({"error": "Invalid file type"}), 400
     except Exception as e:
